@@ -1,24 +1,21 @@
 package org.pivotal.paltracker;
 
-import org.pivotal.paltracker.jpa.SpringDataTimeEntryRepository;
-import org.pivotal.paltracker.jpa.TimeEntryJpa;
+import org.pivotal.paltracker.repository.TimeEntry;
+import org.pivotal.paltracker.repository.TimeEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/jdbc")
 public class TimeEntryController {
     private final TimeEntryRepository timeEntryRepository;
 
     @Autowired
-    public TimeEntryController(@Qualifier("jdbcRepository") TimeEntryRepository timeEntryRepository) {
+    public TimeEntryController(@Qualifier("springDataRepository") TimeEntryRepository timeEntryRepository) {
         this.timeEntryRepository = timeEntryRepository;
     }
 
@@ -47,7 +44,7 @@ public class TimeEntryController {
 
     @DeleteMapping("/time-entries/{id}")
     public ResponseEntity delete(@PathVariable("id") long id) {
-        int num = timeEntryRepository.delete(id);
-        return (num > 0)? ResponseEntity.ok().build() : ResponseEntity.noContent().build();
+        boolean deleted = timeEntryRepository.delete(id);
+        return (deleted)? ResponseEntity.ok().build() : ResponseEntity.noContent().build();
     }
 }

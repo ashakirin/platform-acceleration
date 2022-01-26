@@ -3,7 +3,7 @@ package pal.trackerapi;
 import com.jayway.jsonpath.DocumentContext;
 import org.junit.jupiter.api.Test;
 import org.pivotal.paltracker.PalTrackerApplication;
-import org.pivotal.paltracker.TimeEntry;
+import org.pivotal.paltracker.repository.TimeEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;

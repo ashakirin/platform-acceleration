@@ -1,6 +1,8 @@
 package org.pivotal.paltracker;
 
 import org.junit.jupiter.api.Test;
+import org.pivotal.paltracker.repository.InMemoryTimeEntryRepository;
+import org.pivotal.paltracker.repository.TimeEntry;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.pivotal.paltracker;
+package org.pivotal.paltracker.repository;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ public interface TimeEntryRepository {
 
     TimeEntry update(long id, TimeEntry timeEntry);
 
-    int delete(long id);
+    boolean delete(long id);
 }

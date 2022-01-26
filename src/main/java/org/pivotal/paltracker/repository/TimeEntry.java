@@ -1,4 +1,4 @@
-package org.pivotal.paltracker.jpa;
+package org.pivotal.paltracker.repository;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "time_entries")
-public class TimeEntryJpa {
+public class TimeEntry {
     @Id
     private long id;
     @Column(name = "project_id")
@@ -21,17 +21,17 @@ public class TimeEntryJpa {
     @Column(name = "hours")
     private int hours;
 
-    public TimeEntryJpa() {
+    public TimeEntry() {
     }
 
-    public TimeEntryJpa(long projectId, long userId, LocalDate date, int hours) {
+    public TimeEntry(long projectId, long userId, LocalDate date, int hours) {
         this.projectId = projectId;
         this.userId = userId;
         this.date = date;
         this.hours = hours;
     }
 
-    public TimeEntryJpa(long id, long projectId, long userId, LocalDate date, int hours) {
+    public TimeEntry(long id, long projectId, long userId, LocalDate date, int hours) {
         this.id = id;
         this.projectId = projectId;
         this.userId = userId;
@@ -63,11 +63,27 @@ public class TimeEntryJpa {
         return hours;
     }
 
+    public void setProjectId(long projectId) {
+        this.projectId = projectId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TimeEntryJpa timeEntry = (TimeEntryJpa) o;
+        TimeEntry timeEntry = (TimeEntry) o;
         return id == timeEntry.id && projectId == timeEntry.projectId && userId == timeEntry.userId && hours == timeEntry.hours && Objects.equals(date, timeEntry.date);
     }
 
