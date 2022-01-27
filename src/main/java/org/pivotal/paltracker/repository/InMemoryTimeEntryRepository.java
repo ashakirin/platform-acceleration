@@ -1,5 +1,6 @@
 package org.pivotal.paltracker.repository;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 @Repository("inMemoryRepository")
+@Profile("inMemoryRepository")
 public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     private Map<Long, TimeEntry> storage = new HashMap();
     private AtomicLong atomicCounter = new AtomicLong();
@@ -50,5 +52,10 @@ public class InMemoryTimeEntryRepository implements TimeEntryRepository {
     public boolean delete(long id) {
         TimeEntry timeEntry = storage.remove(id);
         return timeEntry != null;
+    }
+
+    @Override
+    public void deleteAll() {
+        storage.clear();
     }
 }

@@ -1,5 +1,6 @@
 package org.pivotal.paltracker.repository;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +14,7 @@ import java.sql.Statement;
 import java.util.List;
 
 @Repository("jdbcRepository")
+@Profile("jdbcRepository")
 public class JdbcTimeEntryRepository implements TimeEntryRepository {
     private final JdbcTemplate jdbcTemplate;
 
@@ -81,5 +83,10 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
     public boolean delete(long id) {
         int num = jdbcTemplate.update("DELETE FROM time_entries WHERE id=?", id);
         return (num > 0);
+    }
+
+    @Override
+    public void deleteAll() {
+        jdbcTemplate.update("DELETE FROM time_entries");
     }
 }

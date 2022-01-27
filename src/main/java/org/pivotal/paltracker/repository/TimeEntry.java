@@ -1,9 +1,7 @@
 package org.pivotal.paltracker.repository;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.annotation.Generated;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -11,6 +9,7 @@ import java.util.Objects;
 @Table(name = "time_entries")
 public class TimeEntry {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "project_id")
     private long projectId;

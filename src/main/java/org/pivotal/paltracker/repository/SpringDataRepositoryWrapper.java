@@ -1,6 +1,7 @@
 package org.pivotal.paltracker.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Repository("springDataRepository")
+@Profile("springDataRepository")
 public class SpringDataRepositoryWrapper implements TimeEntryRepository {
     private final SpringDataTimeEntryRepository repository;
 
@@ -35,7 +37,8 @@ public class SpringDataRepositoryWrapper implements TimeEntryRepository {
 
     @Override
     public TimeEntry update(long id, TimeEntry timeEntry) {
-        return repository.save(timeEntry);
+        TimeEntry updatedEntity = repository.save(timeEntry);
+        return updatedEntity;
     }
 
     @Override
@@ -47,5 +50,10 @@ public class SpringDataRepositoryWrapper implements TimeEntryRepository {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
     }
 }

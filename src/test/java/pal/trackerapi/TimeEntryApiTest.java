@@ -1,9 +1,12 @@
 package pal.trackerapi;
 
 import com.jayway.jsonpath.DocumentContext;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.pivotal.paltracker.PalTrackerApplication;
+import org.pivotal.paltracker.repository.SpringDataTimeEntryRepository;
 import org.pivotal.paltracker.repository.TimeEntry;
+import org.pivotal.paltracker.repository.TimeEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -11,6 +14,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -20,14 +25,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(classes = PalTrackerApplication.class, webEnvironment = RANDOM_PORT)
-public class TimeEntryApiTest {
+@TestPropertySource(locations = "classpath:test-application.yaml")
+public abstract class TimeEntryApiTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    TimeEntryRepository repository;
+
     private final long projectId = 123L;
     private final long userId = 456L;
     private TimeEntry timeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-08"), 8);
+
+    @BeforeEach
+    public void setup() {
+        repository.deleteAll();
+    }
 
     @Test
     public void testCreate() throws Exception {
@@ -85,7 +99,7 @@ public class TimeEntryApiTest {
         Long id = createTimeEntry();
         long projectId = 2L;
         long userId = 3L;
-        TimeEntry updatedTimeEntry = new TimeEntry(projectId, userId, LocalDate.parse("2017-01-09"), 9);
+        TimeEntry updatedTimeEntry = new TimeEntry(id, projectId, userId, LocalDate.parse("2017-01-09"), 9);
 
 
         ResponseEntity<String> updateResponse = restTemplate.exchange("/time-entries/" + id, HttpMethod.PUT, new HttpEntity<>(updatedTimeEntry, null), String.class);

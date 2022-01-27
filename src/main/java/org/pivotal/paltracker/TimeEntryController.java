@@ -15,7 +15,7 @@ public class TimeEntryController {
     private final TimeEntryRepository timeEntryRepository;
 
     @Autowired
-    public TimeEntryController(@Qualifier("springDataRepository") TimeEntryRepository timeEntryRepository) {
+    public TimeEntryController(TimeEntryRepository timeEntryRepository) {
         this.timeEntryRepository = timeEntryRepository;
     }
 
