@@ -1,6 +1,5 @@
 package org.pivotal.paltracker.repository;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;

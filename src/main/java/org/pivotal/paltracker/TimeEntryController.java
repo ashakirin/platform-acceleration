@@ -22,7 +22,7 @@ public class TimeEntryController {
     @PostMapping("/time-entries")
     public ResponseEntity<TimeEntry> create(@RequestBody TimeEntry timeEntry) {
         TimeEntry resultTimeEntry = timeEntryRepository.create(timeEntry);
-        return ResponseEntity.created(URI.create(Long.toString(timeEntry.getId()))).body(resultTimeEntry);
+        return ResponseEntity.created(URI.create(Long.toString(resultTimeEntry.getId()))).body(resultTimeEntry);
     }
 
     @GetMapping("/time-entries/{id}")
