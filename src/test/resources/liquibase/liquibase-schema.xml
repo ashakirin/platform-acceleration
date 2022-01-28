@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   logicalFilePath="."
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet dbms="h2" author="ashakirin@vmware.com" id="pal-tracker-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TIME_ENTRIES"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TIME_ENTRIES">
+            <column name="ID" type="BIGINT" autoIncrement="true" >
+                <constraints nullable="false"/>
+            </column>
+            <column name="PROJECT_ID" type="BIGINT" />
+            <column name="USER_ID" type="BIGINT" />
+            <column name="DATE" type="DATE" />
+            <column name="HOURS" type="INT" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
